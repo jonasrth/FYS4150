@@ -1,4 +1,4 @@
 # FYS4150
 FYS4150 – Computational Physics
 
-Hallo
+Project solutions are in the directories named accordingly
