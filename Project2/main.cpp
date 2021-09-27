@@ -4,21 +4,25 @@
 
 int main(){
 
-
+  // matrix size N, step size h, diagonal d, sub/super-diagonal a,
   int N;
   double h;
   double a,d;
 
+  // matrix A, eigenvalues and eigenvectors
   arma::mat A;
   arma::vec eigval;
   arma::mat eigvec;
 
-  arma::vec analytical_eigval;
+  // analytical eigenvalues and eigenvectors
+  vec analytical_eigval;
   arma::mat analytical_eigvec;
 
-  std::cout << std::endl << "PROBLEM 3:" << std::endl << std::endl;
-
+  //
   // Problem 3:
+  //
+
+  std::cout << std::endl << "PROBLEM 3:" << std::endl << std::endl;
 
   N = 6;
   h = 1.0/(N+1);
@@ -37,15 +41,14 @@ int main(){
   // Finding eigenvalues and eigenvectors through armadillo:
   arma::eig_sym(eigval,eigvec,A);
 
-
   std::cout << "Analytical eigenvalues:" << std::endl << analytical_eigval << std::endl;
   std::cout << "Armadillo eigenvalues:" << std::endl << eigval << std::endl;
   std::cout << "Analytical eigenvectors (columns):" << std::endl << analytical_eigvec << std::endl;
   std::cout << "Armadillo eigenvectors (columns):" << std::endl << eigvec << std::endl;
 
-
-
+  //
   // Problem 4b:
+  //
 
   std::cout << std::endl << "PROBLEM 4b:" << std::endl << std::endl;
 
@@ -63,7 +66,9 @@ int main(){
   std::cout << "A has max off-diagonal element of value " << A_max
             << " at indeces k = " << k << ", l = " << l << "." << std::endl;
 
+  //
   // Problem 5:
+  //
 
   std::cout << std::endl << std::endl << "PROBLEM 5b:" << std::endl << std::endl;
 
@@ -81,8 +86,9 @@ int main(){
   std::cout << "Analytical eigenvectors (columns):" << std::endl << analytical_eigvec << std::endl;
   std::cout << "Jacobi eigenvectors (columns):" << std::endl << eigvec << std::endl;
 
-
+  //
   // Problem 6a:
+  //
 
   int N_max = 50;
 
@@ -113,12 +119,13 @@ int main(){
 
   write_to_file("transformations_dense.txt",N_vals,iter_vals);
 
-
+  //
   // Problem 7:
+  //
 
-  //compare_jacobi_analytical(10,eps,maxiter);
+  compare_jacobi_analytical(10,eps,maxiter);
 
-  //compare_jacobi_analytical(100,eps,maxiter);
+  compare_jacobi_analytical(100,eps,maxiter);
 
 
   return 0;
