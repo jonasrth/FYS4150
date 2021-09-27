@@ -8,9 +8,20 @@
 
 void compare_jacobi_analytical(int N, double eps, const int maxiter){
 
+  /*
+  Writes analytical solutions of buckling beam second order differential equation
+  to file as well as the solutions found using the jacobi rotation method. Only
+  the solutions for the three lowest eigenvalues are saved.
+
+  N       - Dimension of matrix
+  eps     - Size limit for biggest off-diag element
+  maxiter - Limit for number of transformations
+  */
+
   double h = 1.0/(N+1);
   double a = -1/(h*h), d = 2/(h*h);
 
+  // N+2 equally spaced values of x between 0 and 1:
   arma::vec x = arma::linspace(0,1,N+2);
 
 
@@ -20,6 +31,7 @@ void compare_jacobi_analytical(int N, double eps, const int maxiter){
 
   eigvec = analytical_eigenvectors(N,a,d);
 
+  // Inserting boundary points and removing all solutions except the first three
   eigvec.shed_cols(3,N-1);
   eigvec.insert_rows(0,1);
   eigvec.insert_rows(N+1,1);
@@ -37,6 +49,7 @@ void compare_jacobi_analytical(int N, double eps, const int maxiter){
 
   jacobi_eigensolver(A,eps,eigval,eigvec,maxiter,iterations,converged);
 
+  // Inserting boundary points and removing all solutions except the first three
   eigvec.shed_cols(3,N-1);
   eigvec.insert_rows(0,1);
   eigvec.insert_rows(N+1,1);
@@ -121,6 +134,11 @@ void jacobi_eigensolver(const arma::mat& A, double eps, arma::vec& eigenvalues,
 
 void jacobi_rotate(arma::mat& A, arma::mat& R, int k, int l){
 
+  /*
+  Performs one rotation on matrix A to remove element with indices k,l
+  Updated total rotation matrix R.
+  */
+
   int N = size(A)[0];
 
   double tau = (A(l,l)-A(k,k))/(2*A(k,l));
@@ -176,13 +194,21 @@ void jacobi_rotate(arma::mat& A, arma::mat& R, int k, int l){
 }
 
 double max_offdiag_symmetric(const arma::mat& A, int& k, int &l){
+  /*
+  Finding maximum offdiagonal element of symmetric matrix A, its indices k,l
+  and returns the value of this element.
+  */
 
   double maxval = 0;
   int N = size(A)[0];
 
   for(int j=1; j<N; j++){
+    // Loops through columns
     for(int i=0; i<j; i++){
+      // Loops through elements in upper diagonal, column j
       if(abs(A(i,j)) > abs(maxval)){
+        // If the value at i,j is bigger than the previous value, saves new
+        // value and its position k,l
         maxval = A(i,j);
         k = i;
         l = j;
@@ -194,6 +220,10 @@ double max_offdiag_symmetric(const arma::mat& A, int& k, int &l){
 }
 
 arma::vec analytical_eigenvalues(int N, double a, double d){
+
+  /*
+  Returns analytical eigenvalues
+  */
 
   arma::vec eigval(N);
 
@@ -207,6 +237,10 @@ arma::vec analytical_eigenvalues(int N, double a, double d){
 }
 
 arma::mat analytical_eigenvectors(int N, double a, double d){
+
+  /*
+  Returns analytical eigenvectors
+  */
 
   arma::mat eigvec(N,N);
 
