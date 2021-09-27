@@ -1,20 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-"""
-N = np.arange(2,21)
-iterations = np.asarray([1,10,6,37,46,80,108,140,179,228,275,315,348,424,470,550,619,703,767])
-
-g = np.gradient(np.log(iterations),np.log(N))
-#g = np.gradient(np.log(N),np.log((767/400)*N**2))
-
-#plt.plot(N,iterations)
-#plt.plot(N,(767/400)*N**2)
-#plt.plot(np.log(N),np.log(iterations))
-plt.plot(N,g)
-plt.show()
-"""
-
 def read_file(filename):
     """
     Returns arrays of columns in file
@@ -35,6 +21,44 @@ def read_file(filename):
 
     return x,y
 
+# Problem 6a:
+
+N,iters = read_file("transformations_tridiag.txt")
+fig,ax = plt.subplots()
+ax.plot(N,iters)
+ax.grid()
+ax.set_xlabel(r"$N$")
+ax.set_ylabel("Transformations")
+ax.set_title(r"Transformations for $N\times N$ tridiagonal matrix")
+plt.savefig("figures/transformations_tridiag.pdf")
+plt.show()
+
+fig,ax = plt.subplots()
+ax.plot(N,np.gradient(np.log(iters[:,0]),np.log(N)))
+ax.grid()
+ax.set_xlabel(r"$N$")
+ax.set_ylabel(r"$\alpha$")
+ax.set_title(r"Gradient of the logarithm of the number of transformations, over $N$")
+plt.savefig("figures/gradient_tridiag.pdf")
+plt.show()
+
+# Problem 6b:
+
+fig,ax = plt.subplots()
+ax.plot(N,iters,label="tridiagonal")
+N,iters = read_file("transformations_dense.txt")
+ax.plot(N,iters,label="dense")
+ax.legend()
+ax.grid()
+ax.set_xlabel(r"$N$")
+ax.set_ylabel("Transformations")
+ax.set_title(r"Transformations for $N\times N$ dense matrix")
+plt.savefig("figures/transformations_dense.pdf")
+plt.show()
+
+
+# Problem 7:
+
 legend_elements_v = [r"$v_{%s}(\hat x)$" % i for i in range(3)]
 legend_elements_u = [r"$u_{%s}(\hat x)$" % i for i in range(3)]
 legend_elements = legend_elements_v+legend_elements_u
@@ -47,8 +71,9 @@ x,u = read_file("solution_N10_analytical.txt")
 fig,ax = plt.subplots()
 ax.plot(x,v)
 ax.plot(x,u)
-ax.set_xlabel(r"$\hat x$")
 ax.legend(legend_elements)
+ax.grid()
+ax.set_xlabel(r"$\hat x$")
 ax.set_title("Comparing analytical- and numerical solutions for $N = 10$")
 plt.savefig("figures/comparison_N10.pdf")
 plt.show()
@@ -62,8 +87,9 @@ x,u = read_file("solution_N100_analytical.txt")
 fig,ax = plt.subplots()
 ax.plot(x,v)
 ax.plot(x,u)
-ax.set_xlabel(r"$\hat x$")
 ax.legend(legend_elements)
+ax.grid()
+ax.set_xlabel(r"$\hat x$")
 ax.set_title("Comparing analytical- and numerical solutions for $N = 100$")
 plt.savefig("figures/comparison_N100.pdf")
 plt.show()
