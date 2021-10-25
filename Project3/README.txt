@@ -15,7 +15,6 @@ Building and running the code:
 - main.cpp
      Build: g++ main.cpp *.cpp -o main.exe -std=c++11 -O2 -larmadillo
      Run: ./main.exe
-
      Build+run: make
 - plot.py
      Run: python plot.py
