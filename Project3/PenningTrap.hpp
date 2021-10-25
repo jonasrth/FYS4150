@@ -7,7 +7,6 @@
 #include <iomanip>
 #include <vector>
 #include <armadillo>
-#include <omp.h>
 #include "Particle.hpp"
 
 class PenningTrap

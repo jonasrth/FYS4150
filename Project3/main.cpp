@@ -124,13 +124,15 @@ int main()
   S.save("text_files/NW_f0.7.txt",arma::arma_ascii);
   */
 
-  /*
+  // Finds particles ejected for induced frequency range (0.42,0.46)
+  // with interactions off:
   PT.f_ = 0.1;
   omegaV_values = arma::linspace(0.42,0.46,50);
   S = particles_outside(PT,500,10000,omegaV_values,false);
   S.save("text_files/NW_f0.1_zoom.txt",arma::arma_ascii);
-  */
 
+  // Finds particles ejected for induced frequency range (0.42,0.46)
+  // with interaction on:
   PT.f_ = 0.1;
   omegaV_values = arma::linspace(0.42,0.46,50);
   S = particles_outside(PT,500,10000,omegaV_values,true);
