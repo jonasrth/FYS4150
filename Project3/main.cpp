@@ -45,7 +45,7 @@ int main()
   // Matrix for holding simulation results:
   arma::mat S;
 
-  /*
+
   // Simulating two particles without interactions:
   S = simulate(PT,"RK4",2,T,N,false);
   S.save("text_files/2p_positions.txt",arma::arma_ascii);
@@ -89,7 +89,6 @@ int main()
   r_err = error_convergence_rate(PT,"RK4",T,h);
   std::cout << "r_err for RK4: " << r_err << std::endl;
 
-  */
 
   // Initialising new PenningTrap
 
@@ -128,7 +127,7 @@ int main()
   S = particles_outside(PT,500,10000,omegaV_values,false);
   S.save("text_files/NW_f0.7.txt",arma::arma_ascii);
 
-  /*
+
   // Finds particles ejected for induced frequency range (0.42,0.46)
   // with interactions off:
   PT.f_ = 0.1;
@@ -142,7 +141,6 @@ int main()
   omegaV_values = arma::linspace(0.42,0.46,50);
   S = particles_outside(PT,500,10000,omegaV_values,true);
   S.save("text_files/NW_f0.1_zoom_interaction.txt",arma::arma_ascii);
-  */
 
   return 0;
 }

@@ -1,6 +1,8 @@
 # FYS4150 - Project 3
 Repository for Project 3
 
+Contains files needed to solve Project 3
+
 main.cpp
 --------
 C++ file that solves Project3 exercises, writes to terminal and writes files to directory "text_files"
