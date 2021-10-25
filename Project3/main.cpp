@@ -3,14 +3,16 @@
 
 // Writes to matrix the solution for the movement of particles in penning trap PT
 // for N steps over time T. Can turn on/off interactions between particles
-// with bool interaction. particles variable denotes how many particles' motion
-// to save.
+// with bool interaction. "particles" variable denotes how many particles' motion
+// to save. "algo" variable can be "RK4" for Runge-Kutte 4, or anything else for
+// Forward Euler.
 arma::mat simulate(PenningTrap PT, std::string algo, int particles, double T, int N, bool interaction);
 
 // Calculates analytical solution for single particle in penning trap, with
 // initial particle state on form r = {x0,0,z0} and v = {0,v0,0}.
 arma::mat analytical_solution(PenningTrap PT, double T, int N);
 
+// Calculates relative error
 arma::mat relative_error(PenningTrap PT, std::string algo, double T, double h);
 
 double error_convergence_rate(PenningTrap PT, std::string algo, double T, arma::vec h);
@@ -110,7 +112,7 @@ int main()
 
   // Finding number of escaped particles as function of induced frequency
 
-  /*
+
   PT.f_ = 0.1;
   S = particles_outside(PT,500,10000,omegaV_values,false);
   S.save("text_files/NW_f0.1.txt",arma::arma_ascii);
@@ -122,8 +124,8 @@ int main()
   PT.f_ = 0.7;
   S = particles_outside(PT,500,10000,omegaV_values,false);
   S.save("text_files/NW_f0.7.txt",arma::arma_ascii);
-  */
 
+  /*
   // Finds particles ejected for induced frequency range (0.42,0.46)
   // with interactions off:
   PT.f_ = 0.1;
@@ -137,6 +139,7 @@ int main()
   omegaV_values = arma::linspace(0.42,0.46,50);
   S = particles_outside(PT,500,10000,omegaV_values,true);
   S.save("text_files/NW_f0.1_zoom_interaction.txt",arma::arma_ascii);
+  */
 
   return 0;
 }
@@ -147,7 +150,6 @@ arma::mat particles_outside(PenningTrap PT, double T, int N, arma::vec omegaV, b
   double dt = T/(N-1);
   arma::mat NW(arma::size(omegaV)[0],2);
 
-  #pragma omp parallel for
   for(int k = 0; k < arma::size(omegaV)[0]; k++){
     PenningTrap PT_ = PT;
     PT_.omegaV_ = omegaV[k];
@@ -156,7 +158,6 @@ arma::mat particles_outside(PenningTrap PT, double T, int N, arma::vec omegaV, b
     }
     NW.row(k)[0] = omegaV[k];
     NW.row(k)[1] = count_particles_outside(PT_)/PT_.Particles_.size();
-    std::cout << std::setw(12) << NW.row(k)[0] << std::setw(12) <<  NW.row(k)[1] << std::endl;
   }
   return NW;
 }

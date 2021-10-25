@@ -23,7 +23,7 @@ def read_file(filename):
 
     return F
 
-"""
+
 F = read_file("2p_positions.txt")
 
 t  = F[:,0]
@@ -66,14 +66,13 @@ for i in range(3):
 plt.tight_layout()
 plt.savefig("figures/phase_plot.pdf")
 plt.show()
-"""
 
-"""
+
 # Relative error plots for Forward Euler
 
 for i in range(5):
     t_rel = read_file("FE_rel_error_h"+str(i)+".txt")
-    plt.plot(t_rel[1:,0],t_rel[1:,1],label=r"$h = 10^{-%s}\mu$"s % i)
+    plt.plot(t_rel[1:,0],t_rel[1:,1],label=r"$h = 10^{-%s}\mu$s" % i)
 plt.legend()
 plt.yscale("log")
 plt.xlabel("t [$\mu$s]")
@@ -92,8 +91,8 @@ plt.xlabel("t [$\mu$s]")
 plt.ylabel("relative error")
 plt.savefig("figures/RK4_rel_error.pdf")
 plt.show()
-"""
-"""
+
+
 F = read_file("2p_interaction_positions.txt")
 
 t  = F[:,0]
@@ -124,34 +123,26 @@ for i in range(3):
 plt.tight_layout()
 plt.savefig("figures/interaction_phase_plot.pdf")
 plt.show()
+
+
+
+"""
+Particles lost as function of induced frequency
 """
 
 
-NW = read_file("NW_f0.1_zoom.txt")
-
+NW = read_file("NW_f0.1.txt")
 omegaV = NW[:,0]
 n = NW[:,1]
 plt.plot(omegaV,n,label="$f = 0.1$")
 
-NW = read_file("NW_f0.1_zoom_interaction.txt")
-
-omegaV = NW[:,0]
-n = NW[:,1]
-plt.plot(omegaV,n,label="$f = 0.1$")
-
-
-plt.show()
-
-"""
 NW = read_file("NW_f0.4.txt")
-
 omegaV = NW[:,0]
 n = NW[:,1]
 plt.plot(omegaV,n,label="$f = 0.4$")
 
 
 NW = read_file("NW_f0.7.txt")
-
 omegaV = NW[:,0]
 n = NW[:,1]
 plt.plot(omegaV,n,label="$f = 0.7$")
@@ -159,74 +150,27 @@ plt.plot(omegaV,n,label="$f = 0.7$")
 plt.legend()
 plt.xlabel(r"$\omega_V$")
 plt.ylabel("escaped particles / total particles")
+plt.savefig("figures/NW.pdf")
 plt.show()
 
 """
+zooming in on peak:
 """
 
-rl = read_file("rel_error.txt")
+NW = read_file("NW_f0.1_zoom.txt")
 
-plt.plot(rl[:,0],rl[:,1])
-plt.show()
-"""
-"""
-F = read_file("simulate.txt")
-t  = F[:,0]
-R1 = F[:,1:4]
-V1 = F[:,4:7]
-R2 = F[:,7:10]
-V2 = F[:,10:13]
+omegaV = NW[:,0]
+n = NW[:,1]
+plt.plot(omegaV,n,label="interactions off")
 
-#plt.plot(R[:,0],R[:,1],label="analytical")
-plt.plot(R1[:,0],R1[:,1],label="numerical")
-#plt.plot(t,R[:,2],label="analytical")
-#plt.plot(t,R1[:,2],label="numerical")
+NW = read_file("NW_f0.1_zoom_interaction.txt")
+
+omegaV = NW[:,0]
+n = NW[:,1]
+plt.plot(omegaV,n,label="interactions on")
+
 plt.legend()
-plt.axis("equal")
-plt.xlabel(r"x [$\mu$m]")
-plt.ylabel(r"y [$\mu$m]")
+plt.xlabel(r"$\omega_V$")
+plt.ylabel("escaped particles / total particles")
+plt.savefig("figures/NW_zoom.pdf")
 plt.show()
-"""
-"""
-fig,ax = plt.subplots(1,3)
-plots = [("x","r"),("y","b"),("z","g")]
-for i in range(3):
-    ax[i].plot(R1[:,i],V1[:,i],color=plots[i][1])
-    ax[i].set_xlabel(rf"${plots[i][0]}$")
-    ax[i].set_ylabel(rf"$v_{plots[i][0]}$")
-plt.tight_layout()
-plt.show()
-"""
-"""
-F = read_file("interaction_positions.txt")
-t  = F[:,0]
-R1 = F[:,1:4]
-V1 = F[:,4:7]
-R2 = F[:,7:10]
-V2 = F[:,10:13]
-
-plt.plot(t,R[:,2],label="analytical")
-plt.plot(t,R1[:,2],label="numerical")
-plt.legend()
-plt.axis("equal")
-plt.xlabel(r"x [$\mu$m]")
-plt.ylabel(r"y [$\mu$m]")
-plt.show()
-
-fig,ax = plt.subplots(1,3)
-plots = [("x","r"),("y","b"),("z","g")]
-for i in range(3):
-    ax[i].plot(R1[:,i],V1[:,i],color=plots[i][1])
-    ax[i].set_xlabel(rf"${plots[i][0]}$")
-    ax[i].set_ylabel(rf"$v_{plots[i][0]}$")
-plt.tight_layout()
-plt.show()
-
-
-plt.plot(R1[:,0],R1[:,1])
-plt.plot(R2[:,0],R2[:,1])
-plt.axis("equal")
-plt.xlabel(r"x [$\mu$m]")
-plt.ylabel(r"y [$\mu$m]")
-plt.show()
-"""
