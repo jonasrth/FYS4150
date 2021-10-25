@@ -1,24 +1,27 @@
 #include "PenningTrap.hpp"
-#include <omp.h>
 
 // Writes to matrix the solution for the movement of particles in penning trap PT
-// for N steps over time T. Can turn on/off interactions between particles
-// with bool interaction. "particles" variable denotes how many particles' motion
-// to save. "algo" variable can be "RK4" for Runge-Kutte 4, or anything else for
-// Forward Euler.
+// for N steps over time T.
+// algo - determines algorithm ("RK4" for Runge-Kutta 4, anything else for Forward Euler)
+// particles - number of particles whose position and velocity to save
+// interaction - set to true to turn on interaction, false to turn off
 arma::mat simulate(PenningTrap PT, std::string algo, int particles, double T, int N, bool interaction);
 
 // Calculates analytical solution for single particle in penning trap, with
 // initial particle state on form r = {x0,0,z0} and v = {0,v0,0}.
 arma::mat analytical_solution(PenningTrap PT, double T, int N);
 
-// Calculates relative error
+// Calculates relative error for step size h over time T
 arma::mat relative_error(PenningTrap PT, std::string algo, double T, double h);
 
+// Calculates the error convergence rate
 double error_convergence_rate(PenningTrap PT, std::string algo, double T, arma::vec h);
 
+// Count particles outside of the Penning trap
 double count_particles_outside(PenningTrap PT);
 
+// Counts particles outside for a range of induced frequencies, for each of them for
+// a time period T with N steps.
 arma::mat particles_outside(PenningTrap PT, double T, int N, arma::vec omegaV, bool interaction);
 
 int main()
