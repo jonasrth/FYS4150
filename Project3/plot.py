@@ -148,7 +148,7 @@ n = NW[:,1]
 plt.plot(omegaV,n,label="$f = 0.7$")
 
 plt.legend()
-plt.xlabel(r"$\omega_V$")
+plt.xlabel(r"$\omega_V [\mu$s$^{-1}]$")
 plt.ylabel("escaped particles / total particles")
 plt.savefig("figures/NW.pdf")
 plt.show()
@@ -170,7 +170,7 @@ n = NW[:,1]
 plt.plot(omegaV,n,label="interactions on")
 
 plt.legend()
-plt.xlabel(r"$\omega_V$")
+plt.xlabel(r"$\omega_V [\mu$s$^{-1}]$")
 plt.ylabel("escaped particles / total particles")
 plt.savefig("figures/NW_zoom.pdf")
 plt.show()
