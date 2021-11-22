@@ -52,13 +52,11 @@ int main()
 
   for(int i = 0; i < L_values.size(); i++){
     filename = "init_temps_L"+std::to_string(L_values[i]);
-    std::cout << filename << std::endl;
     temperature_loop(filename, L_values[i], 2.1, 2.4, 10, 1000000, 2000);
   }
 
   for(int i = 0; i < L_values.size(); i++){
     filename = "zoom_peak_temps_2_L"+std::to_string(L_values[i]);
-    std::cout << filename << std::endl;
     temperature_loop(filename, L_values[i], 2.26, 2.30, 40, 1000000, 2000);
   }
 
@@ -137,10 +135,14 @@ void temperature_loop(std::string filename, int L, double Tmin, double Tmax,
   int N = L*L;
 
   arma::vec T = arma::linspace(Tmin,Tmax,T_steps+1);
+
+  // Array for containing data for energy, magnetisation
+  // heat capacity and magnetic susceptibility at temperature T
   arma::mat data(T_steps+1,5);
 
   unsigned int seed = std::chrono::system_clock::now().time_since_epoch().count();
 
+  // Effective number of cycles after removing burn-in time
   int n_eff = n - n_burnin;
 
   #pragma omp parallel
