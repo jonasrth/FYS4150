@@ -31,10 +31,13 @@ public:
   // Constructor
   RandomFlipper(arma::mat S, double T);
 
+  // find energy of lattice
   double find_energy();
 
+  // updates state of lattice (attempts to flip one spin)
   void update_state();
 
+  // updates state N = L*L times (one MC cycles)
   void monte_carlo_cycle();
 
 };

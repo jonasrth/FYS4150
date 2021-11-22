@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import savgol_filter
+from scipy.stats import linregress
 
 plt.rcParams['font.size'] = '14'
 
@@ -21,7 +22,7 @@ def read_file(filename):
     file.close()
 
     return F
-"""
+
 # Analytical partition function, expectation values, heat capacity
 # and magnetic susceptibility for LxL lattice with length L = 2 as
 # a function of temperature T.
@@ -106,11 +107,11 @@ ax.set_ylabel(r"$p(\mathbf{s}$; $T = 2.4$ $J/k_B)$")
 fig.savefig("figures/EM_T2_L20.pdf")
 plt.show()
 
-"""
+
 L_values = [40,60,80,100]
 
 dict = {}
-"""
+
 
 for L in L_values:
     dict[L] = read_file("init_temps_L"+str(L)+".txt")
@@ -154,7 +155,7 @@ plt.xlabel(r"$T$ [J/k$_B$]")
 plt.ylabel(r"$\chi$ [1]")
 plt.savefig("figures/chi_T.pdf")
 plt.show()
-"""
+
 
 for L in L_values:
     dict[L] = read_file("zoom_peak_temps_2_L"+str(L)+".txt")
@@ -181,3 +182,15 @@ ax.set_xlabel("L")
 ax.set_ylabel(r"$T_c$ [$J/k_B$]")
 fig.savefig("figures/T_c.pdf")
 plt.show()
+
+L = np.asarray(L_values)
+fig,ax = plt.subplots()
+ax.plot(L,T_c*L,label=r"$T_c(L=\infty)L + a$")
+ax.set_xlabel("L")
+ax.set_ylabel(r"$T_cL$ [$J/k_B$]")
+ax.legend()
+fig.savefig("figures/T_cL.pdf")
+plt.show()
+
+res = linregress(L,T_c*L)
+print("T_C(L = infinity) = " + str(res.slope)+ " J/k_B")

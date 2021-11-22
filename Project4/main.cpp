@@ -1,10 +1,23 @@
 #include "RandomFlipper.hpp"
 
+// initialises S randomly
 void initialise(arma::mat& S, int seed);
 
+// loops over n MC cycles at a temperature T for a lattic of size L
+// unordered - bool to tell is initialisation of lattice should choose
+//             random spin direction or point them all in the same direction
+// save - bool to tell if you want to save to file
+// print - bool to tell if you want to print expectation values, etc.
 void MC_cycles(std::string filename, int L, double T, int n,
                 bool unordered = true, bool save = true, bool print = false);
 
+// loops over temperatures and saves quantities to file "filename"
+// L - size of lattice
+// Tmin - min temperature value
+// Tmax - max temperature value
+// T_steps - numper of steps to take
+// n - number of monte carlo cycles
+// n - burn-in time to use
 void temperature_loop(std::string filename, int L, double Tmin, double Tmax,
                       int T_steps, int n, int n_burnin);
 
@@ -34,34 +47,20 @@ int main()
   std::vector<int> L_values = {40,60,80,100};
   std::string filename;
 
-  /*
+  // Finding quantities as function of temperature
+  // WARNING: takes hours to run.
+
   for(int i = 0; i < L_values.size(); i++){
     filename = "init_temps_L"+std::to_string(L_values[i]);
     std::cout << filename << std::endl;
     temperature_loop(filename, L_values[i], 2.1, 2.4, 10, 1000000, 2000);
   }
-  */
-  /*
-  for(int i = 0; i < L_values.size(); i++){
-    filename = "zoom_peak_temps_1_L"+std::to_string(L_values[i]);
-    std::cout << filename << std::endl;
-    temperature_loop(filename, L_values[i], 2.25, 2.35, 10, 1000000, 2000);
-  }
-  */
-  /*
+
   for(int i = 0; i < L_values.size(); i++){
     filename = "zoom_peak_temps_2_L"+std::to_string(L_values[i]);
     std::cout << filename << std::endl;
     temperature_loop(filename, L_values[i], 2.26, 2.30, 40, 1000000, 2000);
   }
-  */
-  /*
-  for(int i = 0; i < L_values.size(); i++){
-    filename = "zoom_peak_temps_test_L"+std::to_string(L_values[i]);
-    std::cout << filename << std::endl;
-    temperature_loop(filename, L_values[i], 2.26, 2.30, 40, 100000, 2000);
-  }
-  */
 
   return 0;
 }
