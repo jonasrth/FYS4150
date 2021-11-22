@@ -1,6 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+set_matplotlib_formats('svg')
+plt.rc('legend', frameon=False)
+plt.rc('figure', figsize=(7, 7 / 1.75)) # Larger figure sizes
+plt.rc('font', size=12)
+
 def read_file(filename):
     """
     Returns arrays of columns in file
