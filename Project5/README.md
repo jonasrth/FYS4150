@@ -11,7 +11,7 @@ different parameters.
 
 main.cpp
 --------
-C++ file that solves Project5 exercises, writes files to directory "text_files"
+C++ file that solves Project5 exercises using the Simulate2DSE class, writes files to directory "text_files"
 
 plot.py
 -------
@@ -21,8 +21,8 @@ Python file that plots results of exercises, saves pdf files to directory "figur
 Building and running the code:
 -------------------------------
 - main.cpp
-     Build: g++ *.cpp -o main.exe -O2 -std=c++11 -larmadillo
-     Run: ./main.exe
-     Build+run: make
+     - Build: g++ *.cpp -o main.exe -O2 -std=c++11 -larmadillo
+     - Run: ./main.exe
+     - Build+run: make
 - plot.py
-     Run: python plot.py
+     - Run: python plot.py
